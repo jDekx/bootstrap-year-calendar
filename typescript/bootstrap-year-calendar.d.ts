@@ -8,7 +8,7 @@
 /**
  * Represent a context menu item for the calendar.
  */
-interface CalendarContextMenuItem<T> {
+export interface CalendarContextMenuItem<T> {
     /**
      * The text of the menu item.
      */
@@ -28,7 +28,7 @@ interface CalendarContextMenuItem<T> {
 /**
  * Represent an element to display in the calendar.
  */
-interface CalendarDataSourceElement {
+export interface CalendarDataSourceElement {
 	/**
      * The name of the element. Used for context menu or specific events.
      */
@@ -63,7 +63,7 @@ interface CalendarDataSourceElement {
 /**
  * Options used for calendar customization.
  */
-interface CalendarOptions<T extends CalendarDataSourceElement> {
+export interface CalendarOptions<T extends CalendarDataSourceElement> {
 
     /**
      * Specifies whether the user can select a range which overlapping an other element present in the datasource.
@@ -208,7 +208,7 @@ interface CalendarOptions<T extends CalendarDataSourceElement> {
     yearChanged?: (e: CalendarYearChangedEventObject) => void;
 }
 
-interface CalendarDayEventObject<T extends CalendarDataSourceElement> {
+export interface CalendarDayEventObject<T extends CalendarDataSourceElement> {
     /**
      * The element that contain the fired day.
      */
@@ -225,14 +225,14 @@ interface CalendarDayEventObject<T extends CalendarDataSourceElement> {
     events: T[];
 }
 
-interface CalendarClickEventObject<T extends CalendarDataSourceElement> extends CalendarDayEventObject<T> {
+export interface CalendarClickEventObject<T extends CalendarDataSourceElement> extends CalendarDayEventObject<T> {
     /**
      * The clicked button.
      */
     which: number;
 }
 
-interface CalendarYearChangedEventObject {
+export interface CalendarYearChangedEventObject {
     /**
      * The new year.
      */
@@ -244,14 +244,14 @@ interface CalendarYearChangedEventObject {
     preventRendering: boolean;
 }
 
-interface CalendarRenderEndEventObject {
+export interface CalendarRenderEndEventObject {
     /**
      * The rendered year.
      */
     currentYear: number;
 }
 
-interface CalendarRangeEventObject {
+export interface CalendarRangeEventObject {
     /**
      * The beginning of the selected range.
      */
@@ -266,7 +266,7 @@ interface CalendarRangeEventObject {
 /**
  * Calendar instance.
  */
-interface Calendar<T extends CalendarDataSourceElement> {
+export interface Calendar<T extends CalendarDataSourceElement> {
     /**
      * Add a new element to the data source. This method causes a refresh of the calendar.
      * 
@@ -579,106 +579,108 @@ interface Calendar<T extends CalendarDataSourceElement> {
 /**
  * Basic calendar instance.
  */
-interface BaseCalendar extends Calendar<CalendarDataSourceElement> {
+export interface BaseCalendar extends Calendar<CalendarDataSourceElement> {
 
 }
 
-interface JQuery {
+declare global {
+    interface JQuery {
 
-    /**
-     * Create a new calendar.
-     */
-    calendar(): BaseCalendar;
+        /**
+         * Create a new calendar.
+         */
+        calendar(): BaseCalendar;
 
-    /**
-     * Create a new calendar.
-     *
-     * @param options The customization options.
-     */
-    calendar(options: CalendarOptions<CalendarDataSourceElement>): BaseCalendar;
+        /**
+         * Create a new calendar.
+         *
+         * @param options The customization options.
+         */
+        calendar(options: CalendarOptions<CalendarDataSourceElement>): BaseCalendar;
 
-    /**
-     * Create a new calendar.
-     *
-     * @param options The customization options.
-     */
-    calendar<T extends CalendarDataSourceElement>(options: CalendarOptions<T>): Calendar<T>;
+        /**
+         * Create a new calendar.
+         *
+         * @param options The customization options.
+         */
+        calendar<T extends CalendarDataSourceElement>(options: CalendarOptions<T>): Calendar<T>;
 	
 
-    /**
-     * Function fired when a day is clicked (for bootstrap-year-calendar only).
-     *
-     * @param handler A function to execute each time the event is triggered.
-     */
-    clickDay(handler: (e: CalendarClickEventObject<CalendarDataSourceElement>) => void): JQuery;
+        /**
+         * Function fired when a day is clicked (for bootstrap-year-calendar only).
+         *
+         * @param handler A function to execute each time the event is triggered.
+         */
+        clickDay(handler: (e: CalendarClickEventObject<CalendarDataSourceElement>) => void): JQuery;
 
-    /**
-     * Function fired when a day is clicked (for bootstrap-year-calendar only).
-     *
-     * @param handler A function to execute each time the event is triggered.
-     */
-    clickDay<T extends CalendarDataSourceElement>(handler: (e: CalendarClickEventObject<T>) => void): JQuery;
+        /**
+         * Function fired when a day is clicked (for bootstrap-year-calendar only).
+         *
+         * @param handler A function to execute each time the event is triggered.
+         */
+        clickDay<T extends CalendarDataSourceElement>(handler: (e: CalendarClickEventObject<T>) => void): JQuery;
 
-    /**
-     * Function fired when a day is right clicked (for bootstrap-year-calendar only).
-     *
-     * @param handler A function to execute each time the event is triggered.
-     */
-    dayContextMenu(handler: (e: CalendarDayEventObject<CalendarDataSourceElement>) => void): JQuery;
+        /**
+         * Function fired when a day is right clicked (for bootstrap-year-calendar only).
+         *
+         * @param handler A function to execute each time the event is triggered.
+         */
+        dayContextMenu(handler: (e: CalendarDayEventObject<CalendarDataSourceElement>) => void): JQuery;
 
-    /**
-     * Function fired when a day is right clicked (for bootstrap-year-calendar only).
-     *
-     * @param handler A function to execute each time the event is triggered.
-     */
-    dayContextMenu<T extends CalendarDataSourceElement>(handler: (e: CalendarDayEventObject<T>) => void): JQuery;
+        /**
+         * Function fired when a day is right clicked (for bootstrap-year-calendar only).
+         *
+         * @param handler A function to execute each time the event is triggered.
+         */
+        dayContextMenu<T extends CalendarDataSourceElement>(handler: (e: CalendarDayEventObject<T>) => void): JQuery;
 
-    /**
-     * Function fired when the mouse enter on a day (for bootstrap-year-calendar only).
-     *
-     * @param handler A function to execute each time the event is triggered.
-     */
-    mouseOnDay(handler: (e: CalendarDayEventObject<CalendarDataSourceElement>) => void): JQuery;
+        /**
+         * Function fired when the mouse enter on a day (for bootstrap-year-calendar only).
+         *
+         * @param handler A function to execute each time the event is triggered.
+         */
+        mouseOnDay(handler: (e: CalendarDayEventObject<CalendarDataSourceElement>) => void): JQuery;
 
-    /**
-     * Function fired when the mouse enter on a day (for bootstrap-year-calendar only).
-     *
-     * @param handler A function to execute each time the event is triggered.
-     */
-    mouseOnDay<T extends CalendarDataSourceElement>(handler: (e: CalendarDayEventObject<T>) => void): JQuery;
+        /**
+         * Function fired when the mouse enter on a day (for bootstrap-year-calendar only).
+         *
+         * @param handler A function to execute each time the event is triggered.
+         */
+        mouseOnDay<T extends CalendarDataSourceElement>(handler: (e: CalendarDayEventObject<T>) => void): JQuery;
 
-    /**
-     * Function fired when the mouse leaves a day (for bootstrap-year-calendar only).
-     *
-     * @param handler A function to execute each time the event is triggered.
-     */
-    mouseOutDay(handler: (e: CalendarDayEventObject<CalendarDataSourceElement>) => void): JQuery;
+        /**
+         * Function fired when the mouse leaves a day (for bootstrap-year-calendar only).
+         *
+         * @param handler A function to execute each time the event is triggered.
+         */
+        mouseOutDay(handler: (e: CalendarDayEventObject<CalendarDataSourceElement>) => void): JQuery;
 
-    /**
-     * Function fired when the mouse leaves a day (for bootstrap-year-calendar only).
-     *
-     * @param handler A function to execute each time the event is triggered.
-     */
-    mouseOutDay<T extends CalendarDataSourceElement>(handler: (e: CalendarDayEventObject<T>) => void): JQuery;
+        /**
+         * Function fired when the mouse leaves a day (for bootstrap-year-calendar only).
+         *
+         * @param handler A function to execute each time the event is triggered.
+         */
+        mouseOutDay<T extends CalendarDataSourceElement>(handler: (e: CalendarDayEventObject<T>) => void): JQuery;
 
-    /**
-     * Function fired when the calendar rendering is ended (for bootstrap-year-calendar only).
-     *
-     * @param handler A function to execute each time the event is triggered.
-     */
-    renderEnd(handler: (e: CalendarRenderEndEventObject) => void): JQuery;
+        /**
+         * Function fired when the calendar rendering is ended (for bootstrap-year-calendar only).
+         *
+         * @param handler A function to execute each time the event is triggered.
+         */
+        renderEnd(handler: (e: CalendarRenderEndEventObject) => void): JQuery;
 
-    /**
-     * Function fired when a date range is selected (for bootstrap-year-calendar only).
-     *
-     * @param handler A function to execute each time the event is triggered.
-     */
-    selectRange(handler: (e: CalendarRangeEventObject) => void): JQuery;
+        /**
+         * Function fired when a date range is selected (for bootstrap-year-calendar only).
+         *
+         * @param handler A function to execute each time the event is triggered.
+         */
+        selectRange(handler: (e: CalendarRangeEventObject) => void): JQuery;
 	
 	/**
-     * Function fired when the visible year of the calendar is changed (for bootstrap-year-calendar only).
-     *
-     * @param handler A function to execute each time the event is triggered.
-     */
-    yearChanged(handler: (e: CalendarYearChangedEventObject) => void): JQuery;
+         * Function fired when the visible year of the calendar is changed (for bootstrap-year-calendar only).
+         *
+         * @param handler A function to execute each time the event is triggered.
+         */
+        yearChanged(handler: (e: CalendarYearChangedEventObject) => void): JQuery;
+    }
 }
